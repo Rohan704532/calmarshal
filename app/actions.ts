@@ -1,6 +1,6 @@
 "use server"
 
-import { onboardingSchema, onboardingSchemaValidation } from "@/lib/zodSchemas";
+import { onboardingSchema, onboardingSchemaValidation, settingsSchema } from "@/app/lib/zodSchemas";
 import prisma from "./lib/db"
 import { requireUser } from "./lib/hooks"
 import { parseWithZod } from '@conform-to/zod'
@@ -32,8 +32,69 @@ export async function OnboardingAction(prevState: any, formData: FormData) {
         },
         data: {
             userName: submission.value.userName,
-            name: submission.value.fullName
+            name: submission.value.fullName,
+            availablity:{
+                createMany:{
+                    data:[
+                        {
+                            day:'Monday',
+                            fromTime:'08:00',
+                            tillTime:'18:00',
+                        },
+                        {
+                            day:'Tuesday',
+                            fromTime:'08:00',
+                            tillTime:'18:00',
+                        },
+                        {
+                            day:'Wednesday',
+                            fromTime:'08:00',
+                            tillTime:'18:00',
+                        },
+                        {
+                            day:'Thursday',
+                            fromTime:'08:00',
+                            tillTime:'18:00',
+                        },
+                        {
+                            day:'Friday',
+                            fromTime:'08:00',
+                            tillTime:'18:00',
+                        },
+                        {
+                            day:'Saturday',
+                            fromTime:'08:00',
+                            tillTime:'18:00',
+                        },
+                        {
+                            day:'Sunday',
+                            fromTime:'08:00',
+                            tillTime:'18:00',
+                        }
+                    ]
+                }
+            }
         }
     });
+    return redirect('/onboarding/grant-id');
+}
+
+export async function SettingsAction(prevState: any, formData: FormData) {
+    const sessoin = await requireUser();
+    const submission = parseWithZod(formData, {
+        schema: settingsSchema,
+    });
+    if (submission.status !== 'success') {
+        return submission.reply();
+    }
+    const user = await prisma.user.update({
+        where: {
+            id: sessoin.user?.id,
+        },
+        data: {
+            name: submission.value.fullName,
+            image: submission.value.profileImage
+        }
+    })
     return redirect('/dashboard')
 }
