@@ -48,9 +48,14 @@ async function getData(eventUrl: string, userName: string) {
     return data;
 }
 
-export default async function BookingFormRoute({ params, searchParams }: { params: { username: string; eventUrl: string }; searchParams: { date?: string; time?: string } }) {
-    const { username, eventUrl } = params;
-    const { date, time } = searchParams
+export default async function BookingFormRoute({
+    params, searchParams
+}: {
+    params: Promise<{ username: string; eventUrl: string }>;
+    searchParams: Promise<{ date?: string; time?: string }>;
+}) {
+    const { username, eventUrl } = await params;
+    const { date, time } = await searchParams
     const data = await getData(eventUrl, username);
     const selectedDate = date ? new Date(date) : new Date();
     const formattedDate = new Intl.DateTimeFormat('en-US', {
