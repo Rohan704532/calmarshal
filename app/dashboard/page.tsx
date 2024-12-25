@@ -8,6 +8,7 @@ import { ExternalLinkIcon, Link2, Pen, Settings, TrashIcon, User2, Users2 } from
 import { Switch } from "@/components/ui/switch";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { CopyLinkMenuItem } from "../components/CopyLinkMenu";
+import { MenuActiveSwitch } from "../components/EventTypeSwitcher";
 
 
 async function getData(userId: string) {
@@ -85,8 +86,10 @@ export default async function DashboardPage() {
                                                 </DropdownMenuItem>
                                             </DropdownMenuGroup>
                                             <DropdownMenuSeparator />
-                                            <DropdownMenuItem>
-                                                <TrashIcon className="size-4 mr-2" />Delete
+                                            <DropdownMenuItem asChild>
+                                                <Link href={`/dashboard/event/${item.id}/delete`}>
+                                                    <TrashIcon className="size-4 mr-2" />Delete
+                                                </Link>
                                             </DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </DropdownMenu>
@@ -107,7 +110,7 @@ export default async function DashboardPage() {
                                     </div>
                                 </Link>
                                 <div className="bg-muted px-5 py-3 justify-between items-center flex">
-                                    <Switch />
+                                    <MenuActiveSwitch initialChecked={item.active} eventTypeId={item.id} />
                                     <Button asChild>
                                         <Link href={`/dashboard/event/${item.id}`}>
                                             Edit Event</Link>
