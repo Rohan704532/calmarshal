@@ -7,7 +7,7 @@ import Link from "next/link";
 
 
 export default async function DeleteEventType({ params }: { params: { eventTypeId: string } }) {
-    const {eventTypeId} = await params;
+    const {eventTypeId} = params;
     return (
         <div className="flex flex-1 items-center justify-center">
             <Card className="max-w-[450px] w-full">
