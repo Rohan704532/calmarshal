@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ExternalLinkIcon, Link2, Pen, Settings, TrashIcon, User2, Users2 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { CopyLinkMenuItem } from "../components/CopyLinkMenu";
 
 
 async function getData(userId: string) {
@@ -73,21 +74,19 @@ export default async function DashboardPage() {
                                                 <DropdownMenuItem asChild>
                                                     <Link href={`/${data.userName}/${item.url}`}>
                                                         <ExternalLinkIcon className="mr-2 size-4" />
-                                                        Preview
+                                                        Previews
                                                     </Link>
                                                 </DropdownMenuItem>
-                                                <DropdownMenuItem>
-                                                    <Link2 className="mr-2 size-4"/>
-                                                    Copy
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem>
-                                                    <Pen className="size-4 mr-2"/>
-                                                    Edit
+                                                <CopyLinkMenuItem meetingUrl={`${process.env.NEXT_PUBLIC_URL}/${data.userName}/${item.url}`} />
+                                                <DropdownMenuItem asChild>
+                                                    <Link href={`/dashboard/event/${item.id}`}>
+                                                        <Pen className="size-4 mr-2" />
+                                                        Edit</Link>
                                                 </DropdownMenuItem>
                                             </DropdownMenuGroup>
-                                            <DropdownMenuSeparator/>
+                                            <DropdownMenuSeparator />
                                             <DropdownMenuItem>
-                                                <TrashIcon className="size-4 mr-2"/>Delete
+                                                <TrashIcon className="size-4 mr-2" />Delete
                                             </DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </DropdownMenu>
@@ -109,8 +108,9 @@ export default async function DashboardPage() {
                                 </Link>
                                 <div className="bg-muted px-5 py-3 justify-between items-center flex">
                                     <Switch />
-                                    <Button>
-                                        Edit Event
+                                    <Button asChild>
+                                        <Link href={`/dashboard/event/${item.id}`}>
+                                            Edit Event</Link>
                                     </Button>
                                 </div>
                             </div>
