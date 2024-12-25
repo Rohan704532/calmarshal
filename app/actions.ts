@@ -1,6 +1,6 @@
 "use server"
 
-import { eventTypeSchema, onboardingSchema, onboardingSchemaValidation, settingsSchema } from "@/app/lib/zodSchemas";
+import { eventTypeSchema, onboardingSchemaValidation, settingsSchema } from "@/app/lib/zodSchemas";
 import prisma from "./lib/db"
 import { requireUser } from "./lib/hooks"
 import { parseWithZod } from '@conform-to/zod'

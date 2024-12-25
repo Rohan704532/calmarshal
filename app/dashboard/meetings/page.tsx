@@ -49,13 +49,13 @@ export default async function MeetingsRoute() {
                     </CardHeader>
                     <CardContent>
                         {data.data.map((item) => (
-                            <form action={CancelMeetingAction}>
-                                <input type="hidden" name="eventId" value={item.id}/>
+                            <form key={item.id} action={CancelMeetingAction}>
+                                <input type="hidden" name="eventId" value={item.id} />
                                 <div className="grid grid-cols-3 justify-between items-center">
                                     <div>
                                         <p className="text-muted-foreground text-sm"> {format(fromUnixTime((item.when as { startTime: number }).startTime), 'EEE, dd MMM')}</p>
                                         <p className="text-muted-foreground text-xs pt-1">
-                                        {format(fromUnixTime((item.when as { startTime: number }).startTime), 'hh:mm a')} - {format(fromUnixTime((item.when as { endTime: number }).endTime), 'hh:mm a')}
+                                            {format(fromUnixTime((item.when as { startTime: number }).startTime), 'hh:mm a')} - {format(fromUnixTime((item.when as { endTime: number }).endTime), 'hh:mm a')}
                                         </p>
                                         <div className="flex items-center mt-1">
                                             <Video className="size-4 mr-2 text-primary" />
@@ -68,7 +68,7 @@ export default async function MeetingsRoute() {
                                     </div>
                                     <SubmitButton text="Cancel Event" variant='destructive' className="w-fit flex ml-auto" />
                                 </div>
-                                <Separator className="my-3"/>
+                                <Separator className="my-3" />
                             </form>
                         ))}
                     </CardContent>
