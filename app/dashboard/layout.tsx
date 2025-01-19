@@ -45,7 +45,7 @@ export default async function DashboardLayout({ children }: { children: ReactNod
                         <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
                             <Link href="/" className="flex gap-2">
                                 <Image src={Logo} alt="logo" className="size-8" />
-                                <p className="text-xl font-bold">Cal<span className="text-primary">Marshal</span></p>
+                                <p className="text-xl font-bold">Sched<span className="text-primary">Ease</span></p>
                             </Link>
                         </div>
                         <div className="flex-1">
